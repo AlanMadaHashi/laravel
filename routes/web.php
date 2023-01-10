@@ -21,6 +21,8 @@ Route::get('/', 'PrincipalController@principal')->name('site.index');
 Route::get('/sobre-nos', 'SobreNosController@sobreNos')->name('site.sobrenos');
 
 Route::get('/contato', 'ContatoController@contato')->name('site.contato');
+Route::post('/contato', 'ContatoController@contato')->name('site.contato');
+
 
 Route::get('/login', function () {
     return 'Login';
@@ -35,9 +37,7 @@ Route::prefix('/app')->group(function () {
         return 'Clientes';
     })->name('app.clientes');
 
-    Route::get('/fornecedores', function () {
-        return 'Fornecedores';
-    })->name('app.fornecedores');
+    Route::get('/fornecedores', 'FornecedorContrller@index')->name('app.fornecedores');
 
     Route::get('/produtos', function () {
         return 'Produtos';
@@ -45,18 +45,10 @@ Route::prefix('/app')->group(function () {
 });
 
 // Rota de redirecionamento
-Route::get('/rota1', function () {
-    echo'Rota1';
-})->name('site.rota1');
+Route::get('/teste/{p1}/{p2}', 'TesteController@teste')->name('teste');
 
-Route::get('/rota2', function () {
-    return redirect()->route('site.rota1');
-})->name('site.rota2');
-
-// Route::redirect('/rota2','rota1');
-
-Route::fallback(function(){
- echo"A rota acessada não existe.<a href=".route('site.index')."> Clique aqui</a> para ir a página inicial!";
+Route::fallback(function () {
+    echo "A rota acessada não existe.<a href=" . route('site.index') . "> Clique aqui</a> para ir a página inicial!";
 });
 
 
